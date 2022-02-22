@@ -4,15 +4,12 @@ class AlerterStrategy
 {
 public:
     virtual ~AlerterStrategy() {}
-
     virtual AlertStatus DoAlert(BreachType BreachType) const = 0;
-
     std::map<BreachType, const char *> temperatureBreachMapper{
         {TOO_LOW, "Temperature is too low"},
         {TOO_HIGH, "Temperature is too high"},
         {NORMAL, "Temperature is normal"},
         {INVALID, "Invalid Cooling type"}};
-
     const unsigned short HEADER = 0xfeed;
     const char *RECEPIENT = "a.b@c.com";
 };
@@ -56,7 +53,6 @@ public:
         {
             result = ALERTNOTREQUIRED;
         }
-        else {}
         return result;
     }
 
