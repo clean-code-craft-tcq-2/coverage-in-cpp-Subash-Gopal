@@ -5,32 +5,64 @@ class AlerterStrategy
 public:
     virtual ~AlerterStrategy() {}
 
-    virtual void DoAlert(BreachType BreachType) const = 0;
+    virtual AlertStatus DoAlert(BreachType BreachType) const = 0;
+
+    std::map<BreachType, const char *> temperatureBreachMapper{
+        {TOO_LOW, "Temperature is too low"},
+        {TOO_HIGH, "Temperature is too high"},
+        {NORMAL, "Temperature is normal"},
+        {INVALID, "Invalid Cooling type"}};
+
+    const unsigned short HEADER = 0xfeed;
+    const char *RECEPIENT = "a.b@c.com";
 };
 
 class SendAlertToControllerStrategy : public AlerterStrategy
 {
 public:
-    void DoAlert(BreachType breachType) const override
+    AlertStatus DoAlert(BreachType breachType) const override
     {
-        //Alerts for all cooling types
+        //Alert sent  for all cooling types
+        //For invalid cooling type - alerts can be printed or notified based on the requirement
+        AlertStatus result = ALERTNOTSENT;
         if (breachType != INVALID)
         {
-            printf("%x : %x \n", HEADER, breachType);
+            printAlert(breachType);
+            result = ALERTED;
         }
-        //Incase invalid cooling type - alerts can be printed or notified
+        return result;
+    }
+
+    void printAlert(const BreachType breachType) const
+    {
+        printf("%x : %x \n", HEADER, breachType);
     }
 };
 
 class SendAlertToMailStrategy : public AlerterStrategy
 {
-    void DoAlert(BreachType breachType) const override
+
+public:
+    AlertStatus DoAlert(BreachType breachType) const override
     {
+        AlertStatus result = ALERTNOTSENT;
+        //For invalid cooling type - alerts can be printed or notified based on the requirement
         if ((breachType == TOO_LOW) || (breachType == TOO_HIGH))
         {
-            std::cout << "To: " << RECEPIENT << "\n";
-            std::cout << "Hi," << (temperatureBreachMapper.find(breachType))->second << "\n";
+            printAlert((temperatureBreachMapper.find(breachType))->second);
+            result = BREACHALERTED;
         }
-        //Incase invalid cooling type - alerts can be printed or notified
+        else if (breachType == NORMAL)
+        {
+            result = ALERTNOTREQUIRED;
+        }
+        else {}
+        return result;
+    }
+
+    void printAlert(const std::string message) const
+    {
+        std::cout << "To: " << RECEPIENT << "\n";
+        std::cout << "Hi, " << message << "\n";
     }
 };
