@@ -42,12 +42,17 @@ public:
     AlertStatus checkBreachAndSendMail(BreachType breachType) const
     {
         //For invalid cooling type - alerts can be printed or notified based on the requirement
-        if ((breachType == TOO_LOW) || (breachType == TOO_HIGH))
-        {
-            printAlert((temperatureBreachMapper.find(breachType))->second);
-            return BREACHALERTED;
+        AlertStatus result = ALERTNOTSENT;
+        if (breachType == TOO_LOW)
+        {           
+            result = BREACHALERTED;
         }
-        return ALERTNOTSENT;
+        if(breachType == TOO_HIGH)
+        {
+            result = BREACHALERTED
+        }
+        (result == BREACHALERTED)? printAlert((temperatureBreachMapper.find(breachType))->second) : ALERTNOTSENT;
+        return result;
     }
     AlertStatus DoAlert(BreachType breachType) const override
     {
