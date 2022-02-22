@@ -53,7 +53,7 @@ public:
     AlertStatus DoAlert(BreachType breachType) const override
     {
         AlertStatus result = ALERTNOTSENT;
-        result = checkBreachAndSendMail(breachType)
+        result = checkBreachAndSendMail(breachType);
 
         return (breachType == NORMAL)? ALERTNOTREQUIRED : result;
     }
