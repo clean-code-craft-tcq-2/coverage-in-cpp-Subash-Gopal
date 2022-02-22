@@ -38,7 +38,6 @@ public:
 
 class SendAlertToMailStrategy : public AlerterStrategy
 {
-
 public:
     AlertStatus checkBreachAndSendMail(BreachType breachType)
     {
@@ -46,7 +45,7 @@ public:
         if ((breachType == TOO_LOW) || (breachType == TOO_HIGH))
         {
             printAlert((temperatureBreachMapper.find(breachType))->second);
-            result = BREACHALERTED;
+            return BREACHALERTED;
         }
         return ALERTNOTSENT;
     }
