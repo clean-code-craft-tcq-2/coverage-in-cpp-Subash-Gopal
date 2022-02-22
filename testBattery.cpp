@@ -3,15 +3,6 @@
 #include "test/catch.hpp"
 #include "BatteryValidator.h"
 
-// TEST_CASE("infers the breach according to limits")
-// {
-//   BatteryValidator *batteryValidatortest1 = new BatteryValidator(0, PASSIVE_COOLING, new SendAlertToMailStrategy);
-//   batteryValidatortest1->validateBattery();
-//   //REQUIRE()
-
-//   delete batteryValidatortest1;
-// };
-
 TEST_CASE("infers the breach according to limits for passive cooling type")
 {
   BatteryValidator *batteryValidatortest1 = new BatteryValidator(0, PASSIVE_COOLING, new SendAlertToMailStrategy);
@@ -41,7 +32,7 @@ TEST_CASE("infers the breach according to limits for passive cooling type")
   REQUIRE(batteryValidatortest1->validateBattery() == ALERTED);
 
   delete batteryValidatortest1;
-}
+};
 TEST_CASE("infers the breach according to limits for HI_ACTIVE_COOLING")
 {
   BatteryValidator *batteryValidatortest2 = new BatteryValidator(0, HI_ACTIVE_COOLING, new SendAlertToMailStrategy);
@@ -70,7 +61,7 @@ TEST_CASE("infers the breach according to limits for HI_ACTIVE_COOLING")
   REQUIRE(batteryValidatortest2->validateBattery() == ALERTED);
 
   delete batteryValidatortest2;
-}
+};
 TEST_CASE("infers the breach according to limits for MED_ACTIVE_COOLING")
 {
   BatteryValidator *batteryValidatortest3 = new BatteryValidator(0, MED_ACTIVE_COOLING, new SendAlertToMailStrategy);
@@ -99,7 +90,7 @@ TEST_CASE("infers the breach according to limits for MED_ACTIVE_COOLING")
   REQUIRE(batteryValidatortest3->validateBattery() == ALERTED);
 
   delete batteryValidatortest3;
-}
+};
 TEST_CASE("Test for invalid cooling type")
 {
   BatteryValidator *batteryValidatortest4 = new BatteryValidator(-4, 5, new SendAlertToMailStrategy);
@@ -112,7 +103,6 @@ TEST_CASE("Test for invalid cooling type")
   REQUIRE(batteryValidatortest4->validateBattery() == ALERTNOTSENT);
 
   delete batteryValidatortest4;
-}
 };
 
 //
