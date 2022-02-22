@@ -7,14 +7,14 @@ typedef enum
     TOO_HIGH,
     INVALID
 } BreachType;
-const unsigned short HEADER = 0xfeed;
-const char *RECEPIENT = "a.b@c.com";
 
-std::map<BreachType, const char *> temperatureBreachMapper{
-    {TOO_LOW, "Temperature is too low"},
-    {TOO_HIGH, "Temperature is too high"},
-    {NORMAL, "Temperature is normal"},
-    {INVALID, "Invalid Cooling type"}};
+typedef enum
+{
+    ALERTNOTREQUIRED,
+    ALERTNOTSENT,
+    BREACHALERTED,
+    ALERTED
+} AlertStatus;
 
 const int PASSIVE_COOLING = 0;
 const int HI_ACTIVE_COOLING = 1;
