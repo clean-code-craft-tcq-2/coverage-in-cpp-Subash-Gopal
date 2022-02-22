@@ -53,7 +53,7 @@ public:
         }
         if(result == BREACHALERTED)
         {
-            printAlert((temperatureBreachMapper.find(breachType))->second));
+            printAlert((temperatureBreachMapper.find(breachType))->second);
         }
         return result;
     }
