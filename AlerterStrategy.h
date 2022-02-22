@@ -51,10 +51,7 @@ public:
     }
     AlertStatus DoAlert(BreachType breachType) const override
     {
-        AlertStatus result = ALERTNOTSENT;
-        result = checkBreachAndSendMail(breachType);
-
-        return (breachType == NORMAL)? ALERTNOTREQUIRED : result;
+        return (breachType == NORMAL) ? ALERTNOTREQUIRED : checkBreachAndSendMail(breachType);
     }
     void printAlert(const std::string message) const
     {
