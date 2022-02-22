@@ -1,4 +1,3 @@
-
 #include <vector>
 #include <algorithm>
 #include <map>
@@ -37,16 +36,18 @@ int BatteryValidator::coolingTypeValidator(int coolingType)
         return INVALID;
     }
 }
-void BatteryValidator::validateBattery()
+AlertStatus BatteryValidator::validateBattery()
 {
     int currentCoolingType = coolingTypeValidator(getCoolingType());
+    AlertStatus result = ALERTNOTSENT;
     if (currentCoolingType == INVALID)
     {
-        this->alerterStrategy_->DoAlert(INVALID);
+        result = this->alerterStrategy_->DoAlert(INVALID);
     }
     else
     {
         BreachType breachType = classifyTemperatureBreach(currentCoolingType, inputValue);
-        this->alerterStrategy_->DoAlert(breachType);
+        result = this->alerterStrategy_->DoAlert(breachType);
     }
+    return result;
 }
