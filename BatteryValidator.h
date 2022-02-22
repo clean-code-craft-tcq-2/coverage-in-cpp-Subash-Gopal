@@ -30,5 +30,5 @@ public:
     BreachType inferBreach(double inputValue, double lowerLimit, double upperLimit);
     BreachType classifyTemperatureBreach(int coolingType, double inputValue);
     int coolingTypeValidator(int coolingType);
-    void validateBattery();
+    AlertStatus validateBattery();
 };
