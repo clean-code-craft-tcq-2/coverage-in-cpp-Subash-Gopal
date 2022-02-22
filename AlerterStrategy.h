@@ -40,18 +40,23 @@ class SendAlertToMailStrategy : public AlerterStrategy
 {
 
 public:
-    AlertStatus DoAlert(BreachType breachType) const override
+    AlertStatus checkBreachAndSendMail(BreachType breachType)
     {
-         AlertStatus result = ALERTNOTSENT;
         //For invalid cooling type - alerts can be printed or notified based on the requirement
         if ((breachType == TOO_LOW) || (breachType == TOO_HIGH))
         {
             printAlert((temperatureBreachMapper.find(breachType))->second);
             result = BREACHALERTED;
-        }        
-        return (breachType == NORMAL)? ALERTNOTREQUIRED : result ;
+        }
+        return ALERTNOTSENT;
     }
+    AlertStatus DoAlert(BreachType breachType) const override
+    {
+        AlertStatus result = ALERTNOTSENT;
+        result = checkBreachAndSendMail(breachType)
 
+        return (breachType == NORMAL)? ALERTNOTREQUIRED : result;
+    }
     void printAlert(const std::string message) const
     {
         std::cout << "To: " << RECEPIENT << "\n";
