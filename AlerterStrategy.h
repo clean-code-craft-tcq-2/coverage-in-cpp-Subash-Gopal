@@ -51,7 +51,10 @@ public:
         {
             result = BREACHALERTED;
         }
-        (result == BREACHALERTED)? printAlert((temperatureBreachMapper.find(breachType))->second) : NULL;
+        if(result == BREACHALERTED)
+        {
+            printAlert((temperatureBreachMapper.find(breachType))->second));
+        }
         return result;
     }
     AlertStatus DoAlert(BreachType breachType) const override
