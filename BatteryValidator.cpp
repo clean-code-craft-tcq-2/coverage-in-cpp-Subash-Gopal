@@ -6,14 +6,8 @@
 
 BreachType BatteryValidator::inferBreach(double inputValue, double lowerLimit, double upperLimit)
 {
-    if (inputValue < lowerLimit)
-    {
-        return TOO_LOW;
-    }
-    if (inputValue > upperLimit)
-    {
-        return TOO_HIGH;
-    }
+    if (inputValue < lowerLimit) { return TOO_LOW; }
+    if (inputValue > upperLimit) { return TOO_HIGH;}
     return NORMAL;
 }
 
