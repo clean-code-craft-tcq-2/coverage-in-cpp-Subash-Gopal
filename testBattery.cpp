@@ -28,6 +28,21 @@ TEST_CASE("Tests classifyTemperatureBreach with MED_ACTIVE_COOLING type")
   REQUIRE(batteryValidatortests->classifyTemperatureBreach(MED_ACTIVE_COOLING, 41) == TOO_HIGH);
 };
 
+TEST_CASE("Tests classifyTemperatureBreach with Invalid Cooling Types")
+{
+   BatteryValidator *batteryValidatortests = new BatteryValidator(0, 3 , new SendAlertToMailStrategy);
+  REQUIRE(batteryValidatortests->classifyTemperatureBreach(MED_ACTIVE_COOLING, 0) == INVALID);
+  REQUIRE(batteryValidatortests->classifyTemperatureBreach(MED_ACTIVE_COOLING, 40) == INVALID);
+  REQUIRE(batteryValidatortests->classifyTemperatureBreach(MED_ACTIVE_COOLING, -1) == INVALID);
+  REQUIRE(batteryValidatortests->classifyTemperatureBreach(MED_ACTIVE_COOLING, 41) == INVALID);
+  
+  batteryValidatortests->setCoolingType(100);
+  REQUIRE(batteryValidatortests->classifyTemperatureBreach(MED_ACTIVE_COOLING, 0) == INVALID);
+  REQUIRE(batteryValidatortests->classifyTemperatureBreach(MED_ACTIVE_COOLING, 20) == INVALID);
+  REQUIRE(batteryValidatortests->classifyTemperatureBreach(MED_ACTIVE_COOLING, -1) == INVALID);
+  REQUIRE(batteryValidatortests->classifyTemperatureBreach(MED_ACTIVE_COOLING, 34) == INVALID);
+};
+
 
 
 TEST_CASE("infers the breach according to limits for passive cooling type")
