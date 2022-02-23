@@ -15,17 +15,17 @@ TEST_CASE("Tests classifyTemperatureBreach with HI_ACTIVE_COOLING type")
 {
    BatteryValidator *batteryValidatortests = new BatteryValidator(0, HI_ACTIVE_COOLING, new SendAlertToMailStrategy);
   REQUIRE(batteryValidatortests->classifyTemperatureBreach(HI_ACTIVE_COOLING, 0) == NORMAL);
-  REQUIRE(batteryValidatortests->classifyTemperatureBreach(HI_ACTIVE_COOLING, 35) == NORMAL);
+  REQUIRE(batteryValidatortests->classifyTemperatureBreach(HI_ACTIVE_COOLING, 45) == NORMAL);
   REQUIRE(batteryValidatortests->classifyTemperatureBreach(HI_ACTIVE_COOLING, -1) == TOO_LOW);
-  REQUIRE(batteryValidatortests->classifyTemperatureBreach(HI_ACTIVE_COOLING, 36) == TOO_HIGH);
+  REQUIRE(batteryValidatortests->classifyTemperatureBreach(HI_ACTIVE_COOLING, 46) == TOO_HIGH);
 };
 TEST_CASE("Tests classifyTemperatureBreach with MED_ACTIVE_COOLING type")
 {
    BatteryValidator *batteryValidatortests = new BatteryValidator(0, MED_ACTIVE_COOLING, new SendAlertToMailStrategy);
   REQUIRE(batteryValidatortests->classifyTemperatureBreach(MED_ACTIVE_COOLING, 0) == NORMAL);
-  REQUIRE(batteryValidatortests->classifyTemperatureBreach(MED_ACTIVE_COOLING, 35) == NORMAL);
+  REQUIRE(batteryValidatortests->classifyTemperatureBreach(MED_ACTIVE_COOLING, 40) == NORMAL);
   REQUIRE(batteryValidatortests->classifyTemperatureBreach(MED_ACTIVE_COOLING, -1) == TOO_LOW);
-  REQUIRE(batteryValidatortests->classifyTemperatureBreach(MED_ACTIVE_COOLING, 36) == TOO_HIGH);
+  REQUIRE(batteryValidatortests->classifyTemperatureBreach(MED_ACTIVE_COOLING, 41) == TOO_HIGH);
 };
 
 
