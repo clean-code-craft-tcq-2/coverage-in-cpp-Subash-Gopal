@@ -41,6 +41,5 @@ AlertStatus BatteryValidator::validateBattery()
     AlertStatus result = ALERTNOTSENT;
     BreachType breachType = classifyTemperatureBreach(currentCoolingType, inputValue);
     result = this->alerterStrategy_->DoAlert(breachType);
-
     return result;
 }
