@@ -1,7 +1,6 @@
 #include "CommonConstants.h"
 #pragma once
-class AlerterStrategy
-{
+class AlerterStrategy {
 public:
     virtual ~AlerterStrategy() {}
     virtual AlertStatus DoAlert(BreachType BreachType) const = 0;
@@ -14,13 +13,10 @@ public:
     const char *RECEPIENT = "a.b@c.com";
 };
 
-class SendAlertToControllerStrategy : public AlerterStrategy
-{
+class SendAlertToControllerStrategy : public AlerterStrategy {
 public:
-    AlertStatus DoAlert(BreachType breachType) const override
-    {
-        //Alert sent  for all cooling types
-        //For invalid cooling type - alerts can be printed or notified based on the requirement
+    AlertStatus DoAlert(BreachType breachType) const override {
+        //Alert sent  for all cooling types and For invalid cooling type - alerts can be printed or notified based on the requirement
         AlertStatus result = ALERTNOTSENT;
         if (breachType != INVALID)
         {
@@ -30,17 +26,14 @@ public:
         return result;
     }
 
-    void printAlert(const BreachType breachType) const
-    {
+    void printAlert(const BreachType breachType) const {
         printf("%x : %x \n", HEADER, breachType);
     }
 };
 
-class SendAlertToMailStrategy : public AlerterStrategy
-{
+class SendAlertToMailStrategy : public AlerterStrategy {
 public:
-    AlertStatus checkBreachAndSendMail(BreachType breachType) const
-    {
+    AlertStatus checkBreachAndSendMail(BreachType breachType) const {
         //For invalid cooling type - alerts can be printed or notified based on the requirement
         if ((breachType == TOO_LOW) || (breachType == TOO_HIGH))
         {
@@ -49,12 +42,12 @@ public:
         }
         return ALERTNOTSENT;
     }
-    AlertStatus DoAlert(BreachType breachType) const override
-    {
+    
+    AlertStatus DoAlert(BreachType breachType) const override {
         return (breachType == NORMAL) ? ALERTNOTREQUIRED : checkBreachAndSendMail(breachType);
     }
-    void printAlert(const std::string message) const
-    {
+    
+    void printAlert(const std::string message) const {
         std::cout << "To: " << RECEPIENT << "\n";
         std::cout << "Hi, " << message << "\n";
     }
