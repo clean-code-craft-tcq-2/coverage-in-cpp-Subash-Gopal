@@ -8,6 +8,8 @@ private:
     double inputValue;
     int coolingType;
     AlerterStrategy *alerterStrategy_;
+    BreachType inferBreach(double inputValue, double lowerLimit, double upperLimit);
+    int coolingTypeValidator(int coolingType);
 
 public:
     BatteryValidator(double inputValue, int coolingType, AlerterStrategy *alerterStrategy = nullptr) : inputValue(inputValue), coolingType(coolingType), alerterStrategy_(alerterStrategy)
@@ -27,8 +29,7 @@ public:
         this->alerterStrategy_ = alerterStrategy;
     }
 
-    BreachType inferBreach(double inputValue, double lowerLimit, double upperLimit);
+   
     BreachType classifyTemperatureBreach(int coolingType, double inputValue);
-    int coolingTypeValidator(int coolingType);
     AlertStatus validateBattery();
 };
