@@ -7,7 +7,7 @@ TEST_CASE("Tests classifyTemperatureBreach with PASSIVE_COOLING type")
 {
    BatteryValidator *batteryValidatortests = new BatteryValidator(0, PASSIVE_COOLING, new SendAlertToMailStrategy);
   REQUIRE(batteryValidatortests->classifyTemperatureBreach(PASSIVE_COOLING, 0) == NORMAL);
-  REQUIRE(batteryValidatortests>classifyTemperatureBreach(PASSIVE_COOLING, 35) == NORMAL);
+  REQUIRE(batteryValidatortests->classifyTemperatureBreach(PASSIVE_COOLING, 35) == NORMAL);
   REQUIRE(batteryValidatortests->classifyTemperatureBreach(PASSIVE_COOLING, -1) == TOO_LOW);
   REQUIRE(batteryValidatortests->classifyTemperatureBreach(PASSIVE_COOLING, 36) == TOO_HIGH);
 };
