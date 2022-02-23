@@ -22,7 +22,7 @@ BreachType BatteryValidator::classifyTemperatureBreach(int coolingType, double i
 }
 
 int BatteryValidator::coolingTypeValidator(int coolingType) {
-    return (NUMBER_OF_COOLINGTYPES > coolingType)? coolingType : INVALID;
+    return (NUMBER_OF_COOLINGTYPES >= coolingType)? coolingType : INVALID;
 }
 
 AlertStatus BatteryValidator::validateBattery() {
