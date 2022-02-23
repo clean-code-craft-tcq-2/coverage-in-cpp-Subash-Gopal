@@ -20,9 +20,16 @@ BreachType BatteryValidator::inferBreach(double inputValue, double lowerLimit, d
 BreachType BatteryValidator::classifyTemperatureBreach(
     int coolingType, double inputValue)
 {
-    int lowerLimit = limits[coolingType][LOWER_LIMIT_INDEX];
-    int upperLimit = limits[coolingType][UPPER_LIMIT_INDEX];
-    return inferBreach(inputValue, lowerLimit, upperLimit);
+    if (coolingType != coolingTypeValidator(coolingType))
+    {
+        return INVALID;
+    }
+    else
+    {
+        int lowerLimit = limits[coolingType][LOWER_LIMIT_INDEX];
+        int upperLimit = limits[coolingType][UPPER_LIMIT_INDEX];
+        return inferBreach(inputValue, lowerLimit, upperLimit);
+    }
 }
 
 int BatteryValidator::coolingTypeValidator(int coolingType)
@@ -31,16 +38,9 @@ int BatteryValidator::coolingTypeValidator(int coolingType)
 }
 AlertStatus BatteryValidator::validateBattery()
 {
-    int currentCoolingType = coolingTypeValidator(getCoolingType());
     AlertStatus result = ALERTNOTSENT;
-    if (currentCoolingType == INVALID)
-    {
-        result = this->alerterStrategy_->DoAlert(INVALID);
-    }
-    else
-    {
-        BreachType breachType = classifyTemperatureBreach(currentCoolingType, inputValue);
-        result = this->alerterStrategy_->DoAlert(breachType);
-    }
+    BreachType breachType = classifyTemperatureBreach(currentCoolingType, inputValue);
+    result = this->alerterStrategy_->DoAlert(breachType);
+
     return result;
 }
