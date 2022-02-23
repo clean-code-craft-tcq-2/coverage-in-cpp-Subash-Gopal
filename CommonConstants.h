@@ -1,15 +1,13 @@
 #pragma once
 
-typedef enum
-{
+typedef enum {
     NORMAL,
     TOO_LOW,
     TOO_HIGH,
     INVALID
 } BreachType;
 
-typedef enum
-{
+typedef enum {
     ALERTNOTREQUIRED,
     ALERTNOTSENT,
     BREACHALERTED,
