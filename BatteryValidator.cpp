@@ -33,7 +33,7 @@ int BatteryValidator::coolingTypeValidator(int coolingType)
 AlertStatus BatteryValidator::validateBattery()
 {
     AlertStatus result = ALERTNOTSENT;
-    BreachType breachType = classifyTemperatureBreach(currentCoolingType, inputValue);
+    BreachType breachType = classifyTemperatureBreach(getCoolingType(), inputValue);
     result = this->alerterStrategy_->DoAlert(breachType);
     return result;
 }
