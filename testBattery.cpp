@@ -31,16 +31,15 @@ TEST_CASE("Tests classifyTemperatureBreach with MED_ACTIVE_COOLING type")
 TEST_CASE("Tests classifyTemperatureBreach with Invalid Cooling Types")
 {
    BatteryValidator *batteryValidatortests = new BatteryValidator(0, 3 , new SendAlertToMailStrategy);
-  REQUIRE(batteryValidatortests->classifyTemperatureBreach(MED_ACTIVE_COOLING, 0) == INVALID);
-  REQUIRE(batteryValidatortests->classifyTemperatureBreach(MED_ACTIVE_COOLING, 40) == INVALID);
-  REQUIRE(batteryValidatortests->classifyTemperatureBreach(MED_ACTIVE_COOLING, -1) == INVALID);
-  REQUIRE(batteryValidatortests->classifyTemperatureBreach(MED_ACTIVE_COOLING, 41) == INVALID);
+  REQUIRE(batteryValidatortests->classifyTemperatureBreach(3, 0) == INVALID);
+  REQUIRE(batteryValidatortests->classifyTemperatureBreach(3, 40) == INVALID);
+  REQUIRE(batteryValidatortests->classifyTemperatureBreach(3, -1) == INVALID);
+  REQUIRE(batteryValidatortests->classifyTemperatureBreach(3, 41) == INVALID);
   
-  batteryValidatortests->setCoolingType(100);
-  REQUIRE(batteryValidatortests->classifyTemperatureBreach(MED_ACTIVE_COOLING, 0) == INVALID);
-  REQUIRE(batteryValidatortests->classifyTemperatureBreach(MED_ACTIVE_COOLING, 20) == INVALID);
-  REQUIRE(batteryValidatortests->classifyTemperatureBreach(MED_ACTIVE_COOLING, -1) == INVALID);
-  REQUIRE(batteryValidatortests->classifyTemperatureBreach(MED_ACTIVE_COOLING, 34) == INVALID);
+  REQUIRE(batteryValidatortests->classifyTemperatureBreach(100, 0) == INVALID);
+  REQUIRE(batteryValidatortests->classifyTemperatureBreach(100, 20) == INVALID);
+  REQUIRE(batteryValidatortests->classifyTemperatureBreach(100, -1) == INVALID);
+  REQUIRE(batteryValidatortests->classifyTemperatureBreach(100, 34) == INVALID);
 };
 
 
